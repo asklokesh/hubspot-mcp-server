@@ -1,14 +1,12 @@
 """HubSpot MCP Server - Main server implementation."""
 
 import asyncio
-import json
 import logging
-import os
 from typing import Any, Dict, List, Optional
 from urllib.parse import urljoin
 
 import httpx
-from pydantic import BaseModel, Field
+from pydantic import Field
 from pydantic_settings import BaseSettings
 
 # Setup logging
