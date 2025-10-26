@@ -60,10 +60,11 @@ class TestHubSpotClient:
         assert client.headers["Authorization"] == "Bearer test_token"
     
     def test_headers_with_api_key(self):
-        """Test headers with API key."""
+        """Test headers with API key - should not set Authorization header."""
         config = HubSpotConfig(api_key="test_key")
         client = HubSpotClient(config)
-        assert client.headers["Authorization"] == "Bearer test_key"
+        # API key authentication uses query parameters, not Bearer token
+        assert "Authorization" not in client.headers or client.headers.get("Authorization") is None
     
     @pytest.mark.asyncio
     async def test_get_contacts_success(self, client):

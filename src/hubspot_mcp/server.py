@@ -47,11 +47,9 @@ class HubSpotClient:
             "Content-Type": "application/json",
         }
         
+        # Only access tokens use Bearer authentication
         if self.config.access_token:
             headers["Authorization"] = f"Bearer {self.config.access_token}"
-        elif self.config.api_key:
-            # API key can be used as query parameter or header
-            headers["Authorization"] = f"Bearer {self.config.api_key}"
         
         return headers
     
@@ -485,19 +483,38 @@ class MCPServer:
         ]
     
     async def run_stdio(self):
-        """Run the server in stdio mode for MCP communication."""
+        """Run the server in stdio mode for MCP communication.
+        
+        This is a basic implementation that demonstrates the structure.
+        In a production MCP server, this would:
+        1. Read JSON-RPC messages from stdin
+        2. Parse and validate the requests
+        3. Route to appropriate tool handlers
+        4. Write JSON-RPC responses to stdout
+        
+        For now, this serves as a foundation for MCP integration.
+        """
         logger.info("Starting HubSpot MCP Server in stdio mode")
         
-        # In a real MCP server, this would handle JSON-RPC over stdio
-        # For now, this is a placeholder that shows the structure
         try:
-            # Print available tools
+            # Print available tools for reference
             tools = self.get_available_tools()
-            logger.info(f"Registered {len(tools)} tools")
+            logger.info(f"Registered {len(tools)} tools: {[t['name'] for t in tools]}")
             
-            # Keep the server running
-            while True:
-                await asyncio.sleep(1)
+            # In a full implementation, this would handle stdin/stdout communication
+            # For example:
+            # while True:
+            #     line = await asyncio.get_event_loop().run_in_executor(None, sys.stdin.readline)
+            #     if not line:
+            #         break
+            #     request = json.loads(line)
+            #     response = await self.handle_jsonrpc_request(request)
+            #     print(json.dumps(response), flush=True)
+            
+            # For now, just keep the server alive
+            logger.info("Server ready. Press Ctrl+C to stop.")
+            await asyncio.Event().wait()
+            
         except KeyboardInterrupt:
             logger.info("Server stopped by user")
         finally:

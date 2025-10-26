@@ -35,7 +35,7 @@ def test_client_initialization():
     assert client.config == config
     assert client.base_url == config.api_base_url
     assert "Content-Type" in client.headers
-    assert client.headers["Authorization"] == "Bearer test_key"
+    # API key doesn't use Authorization header
     
     print("✓ HubSpotClient initialization tests passed")
 
@@ -49,10 +49,11 @@ def test_client_headers():
     client1 = HubSpotClient(config1)
     assert client1.headers["Authorization"] == "Bearer test_token"
     
-    # Test with API key
+    # Test with API key - should not have Authorization header
     config2 = HubSpotConfig(api_key="test_key")
     client2 = HubSpotClient(config2)
-    assert client2.headers["Authorization"] == "Bearer test_key"
+    # API key uses query parameters, not Authorization header
+    assert "Authorization" not in client2.headers or client2.headers.get("Authorization") is None
     
     print("✓ Client header tests passed")
 
