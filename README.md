@@ -1,5 +1,7 @@
 # HubSpot MCP Server
 
+<!-- mcp-name: io.github.asklokesh/hubspot-mcp-server -->
+
 <div align="center">
 
 # Hubspot Mcp Server
