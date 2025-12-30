@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.asklokesh/hubspot-mcp-server",
+  "description": "MCP server for HubSpot API integration",
+  "title": "Hubspot",
+  "repository": {
+    "url": "https://github.com/asklokesh/hubspot-mcp-server",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "hubspot-mcp-server",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "HUBSPOT_API_KEY",
+          "description": "API Key for HUBSPOT",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "HUBSPOT_API_URL",
+          "description": "API URL for HUBSPOT",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}
